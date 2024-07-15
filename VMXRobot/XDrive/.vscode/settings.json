@@ -16,8 +16,6 @@
   },
   "C_Cpp.default.configurationProvider": "vscode-wpilib",
   "files.associations": {
-    "xmemory": "cpp",
-    "xstring": "cpp",
-    "xutility": "cpp"
+    "*.inc": "cpp"
   }
 }

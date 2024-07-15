@@ -30,7 +30,7 @@ void LidarTest::Periodic()
     if (lidarRunning)
         scanData = lidar.GetData(); // Update scanData struct
     #if DEBUG //Print out sensor info
-        frc::SmartDashboard::PutNumber("Angle", scanData.angle[60]);
-        frc::SmartDashboard::PutNumber("Distance", scanData.distance[60]);
+        frc::SmartDashboard::PutNumber("Scan Angle", scanData.angle[180]);
+        frc::SmartDashboard::PutNumber("Distance", scanData.distance[180]);
     #endif
 }

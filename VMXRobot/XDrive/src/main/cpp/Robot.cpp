@@ -10,7 +10,16 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
-void Robot::RobotInit() {}
+
+
+void Robot::RobotInit() 
+{
+    m_container.drive.SetRunningLED(false);
+    m_container.drive.SetStoppedLED(true);
+    active = false;
+    countLED = 1;
+    prevLEDValue = true;
+}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -20,30 +29,67 @@ void Robot::RobotInit() {}
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic() { frc2::CommandScheduler::GetInstance().Run(); }
+void Robot::RobotPeriodic() 
+{ 
+  frc2::CommandScheduler::GetInstance().Run();
+
+  // if (!m_container.drive.GetStartButton() && !active)
+  // {
+  //   ds.Enable();
+  //   active = true;
+  //   if (!m_container.drive.lidarRunning)
+  //   {
+  //     m_container.drive.LidarStart();
+  //   }
+  // }
+  // if (!m_container.drive.GetStopButton() && active)
+  // {
+  //   active = false;
+  //   ds.Disable();
+  // } 
+}
 
 /**
  * This function is called once each time the robot enters Disabled mode. You
  * can use it to reset any subsystem information you want to clear when the
  * robot is disabled.
  */
-void Robot::DisabledInit() {}
+void Robot::DisabledInit() 
+{
+  m_container.drive.SetStoppedLED(true);
+  // if (m_container.drive.lidarRunning)
+  // {
+  //   m_container.drive.LidarStop();
+  // }
+}
 
-void Robot::DisabledPeriodic() {}
+void Robot::DisabledPeriodic() 
+{
+  // m_container.drive.SetRunningLED(false);
+  // m_container.drive.SetStoppedLED(true);
+}
 
 /**
  * This autonomous runs the autonomous command selected by your {@link
  * RobotContainer} class.
  */
-void Robot::AutonomousInit() {
+void Robot::AutonomousInit() 
+{
+  m_container.drive.SetStoppedLED(false);
+  m_autonomousCommand = m_container.GetAutonomousCommand();
+
   if (m_autonomousCommand != nullptr) {
-    m_autonomousCommand->Schedule();
+    //m_autonomousCommand->Schedule();
   }
 }
 
-void Robot::AutonomousPeriodic() {}
+void Robot::AutonomousPeriodic() 
+{
+    RunningLED();
+}
 
-void Robot::TeleopInit() {
+void Robot::TeleopInit() 
+{
   // This makes sure that the autonomous stops running when
   // teleop starts running. If you want the autonomous to
   // continue until interrupted by another command, remove
@@ -52,12 +98,16 @@ void Robot::TeleopInit() {
     m_autonomousCommand->Cancel();
     m_autonomousCommand = nullptr;
   }
+  m_container.drive.SetStoppedLED(false);
 }
 
 /**
  * This function is called periodically during operator control.
  */
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() 
+{
+    RunningLED();
+}   
 
 /**
  * This function is called periodically during test mode.
@@ -65,7 +115,28 @@ void Robot::TeleopPeriodic() {}
 void Robot::TestPeriodic() {}
 
 #ifndef RUNNING_FRC_TESTS
-int main() {
-   return frc::StartRobot<Robot>(); 
-   }
+int main() { return frc::StartRobot<Robot>(); }
 #endif
+
+
+void Robot::RunningLED()
+{
+  if ((countLED % 25) == 0)
+  {
+    if (prevLEDValue)
+    {
+      m_container.drive.SetRunningLED(false);
+      prevLEDValue = false;
+    }
+    else
+    {
+      m_container.drive.SetRunningLED(true);
+      prevLEDValue = true;
+    }
+    countLED = 1;
+  }
+  else
+  {
+    countLED++;
+  }
+}

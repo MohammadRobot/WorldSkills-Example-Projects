@@ -1,6 +1,5 @@
 {
-  "java.configuration.updateBuildConfiguration": "disabled",
-  "java.import.gradle.enabled": false,
+  "java.configuration.updateBuildConfiguration": "automatic",
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -13,11 +12,5 @@
     "**/.settings": true,
     "**/.factorypath": true,
     "**/*~": true
-  },
-  "C_Cpp.default.configurationProvider": "vscode-wpilib",
-  "files.associations": {
-    "xmemory": "cpp",
-    "xstring": "cpp",
-    "xutility": "cpp"
   }
 }

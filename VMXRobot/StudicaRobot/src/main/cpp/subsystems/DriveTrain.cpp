@@ -21,10 +21,10 @@ DriveTrain::DriveTrain()
     // backLeftEncoder.SetReverseDirection();
 
     //frontRight.InvertRPM();
-    //frontRightEncoder.SetReverseDirection();
+    frontRightEncoder.SetReverseDirection();
 
     //backRight.InvertRPM();
-    //backRightEncoder.SetReverseDirection();
+    backRightEncoder.SetReverseDirection();
 }
 
 double DriveTrain::GetYaw()
@@ -140,10 +140,10 @@ void DriveTrain::Periodic()
     #if DEBUG
         frc::SmartDashboard::PutNumber("Yaw", GetYaw());
         frc::SmartDashboard::PutNumber("Angle", GetAngle());
-        // frc::SmartDashboard::PutNumber("Front Left Encoder", GetFrontLeftEncoder());
-        // frc::SmartDashboard::PutNumber("Back Left Encoder", GetBackLeftEncoder());
-        // frc::SmartDashboard::PutNumber("Front Right Encoder", GetFrontRightEncoder());
-        // frc::SmartDashboard::PutNumber("Back Right Encoder", GetBackRightEncoder());
+        frc::SmartDashboard::PutNumber("Front Left Encoder", GetFrontLeftEncoder());
+        frc::SmartDashboard::PutNumber("Back Left Encoder", GetBackLeftEncoder());
+        frc::SmartDashboard::PutNumber("Front Right Encoder", GetFrontRightEncoder());
+        frc::SmartDashboard::PutNumber("Back Right Encoder", GetBackRightEncoder());
         // frc::SmartDashboard::PutNumber("Front Left RPM", frontLeft.GetRPM());
         // frc::SmartDashboard::PutNumber("Back Left RPM", backLeft.GetRPM());
         // frc::SmartDashboard::PutNumber("Front Right RPM", frontRight.GetRPM());
